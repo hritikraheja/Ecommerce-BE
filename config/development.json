@@ -1,0 +1,7 @@
+{
+  "environment": "development",
+  "MONGO_URI": "mongodb://127.0.0.1:27017/product",
+  "BASIC_AUTH_USER": "test12345",
+  "BASIC_AUTH_PASSWORD": "pass12345",
+  "JWT_CERT": "test@12345"
+}
