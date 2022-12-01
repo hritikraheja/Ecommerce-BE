@@ -37,6 +37,7 @@ class App extends bootstrap_1.BootClass {
                 this.app.use("/api/v1/cart", require('./routes/v1/cart.routes'));
                 this.app.use("/api/v1/wishlist", require('./routes/v1/wishlist.routes'));
                 this.app.use("/api/v1/orders", require("./routes/v1/orders.routes"));
+                this.app.use("/api/v1/promocodes", require('./routes/v1/promocodes.routes'));
                 yield this.start();
             }
             catch (error) {

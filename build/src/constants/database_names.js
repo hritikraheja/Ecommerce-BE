@@ -10,6 +10,7 @@ exports.MONGO_DB_REF = Object.freeze({
     CART: 'Cart',
     ORDER: 'Orders',
     BRAND: 'Brands',
-    WISHLIST: 'Wishlist'
+    WISHLIST: 'Wishlist',
+    PROMOCODE: 'Promocode'
 });
 //# sourceMappingURL=database_names.js.map

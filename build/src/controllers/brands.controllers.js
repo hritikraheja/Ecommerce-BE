@@ -16,15 +16,8 @@ const brands_model_1 = require("../models/brands.model");
 exports.BrandsController = {
     getAllBrands: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            let brands = yield brands_model_1.Brands.find({});
-            let result = brands.map((brand) => ({
-                name: brand.name,
-                email: brand.email,
-                description: brand.description,
-                moto: brand.moto,
-                rating: brand.rating,
-            }));
-            res.status(succes_1.SUCCESS.GET_200.code).json({ result: result });
+            let brands = yield brands_model_1.Brands.find({}, { name: 1, moto: 1, description: 1, rating: 1, email: 1, _id: 0 });
+            res.status(succes_1.SUCCESS.GET_200.code).json({ result: brands });
         }
         catch (err) {
             res
@@ -35,19 +28,9 @@ exports.BrandsController = {
     getBrandByName: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let name = req.params.name;
         try {
-            let brandArray = yield brands_model_1.Brands.find({ name: name });
-            if (brandArray.length == 0) {
-                return res.status(succes_1.SUCCESS.NOT_FOUND.code).send(succes_1.SUCCESS.NOT_FOUND);
-            }
-            let brand = brandArray[0];
+            let brand = yield brands_model_1.Brands.findOne({ name: name }, { name: 1, moto: 1, description: 1, rating: 1, email: 1, _id: 0 });
             res.send({
-                result: {
-                    name: brand.name,
-                    moto: brand.moto,
-                    description: brand.description,
-                    rating: brand.rating,
-                    email: brand.email,
-                },
+                result: brand,
             });
         }
         catch (err) {

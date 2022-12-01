@@ -67,12 +67,8 @@ export const UsersController = {
   },
   getUsers: async (req, res) => {
     try {
-      let users = await Users.find({});
-      let result = users.map((user) => ({
-        email: user.email,
-        name: user.name,
-      }));
-      res.send({ users: result });
+      let users = await Users.find({}, {email : 1, name : 1, _id : 0});
+      res.send({ users: users });
     } catch (err) {
       res.status(500).send("Database Error : \n" + err);
     }
@@ -80,17 +76,9 @@ export const UsersController = {
   getUserByEmail: async (req, res) => {
     let email = req.params.email;
     try {
-      let userArray = await Users.find({ email: email });
-      if (userArray.length == 0) {
-        return res.status(SUCCESS.NOT_FOUND.code).send(SUCCESS.NOT_FOUND);
-      }
-      let user = userArray[0];
+      let user = await Users.find({ email: email }, {email : 1, name : 1, role : 1, _id : 0});
       res.send({
-        user: {
-          email: user.email,
-          userName: user.name,
-          role: user.role == ROLES.ADMIN ? "Admin" : "User",
-        },
+        user: user
       });
     } catch (err) {
       console.log(err);

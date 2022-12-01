@@ -7,5 +7,6 @@ export const MONGO_DB_REF = Object.freeze({
    CART : 'Cart',
    ORDER: 'Orders',
    BRAND : 'Brands',
-   WISHLIST : 'Wishlist'
+   WISHLIST : 'Wishlist',
+   PROMOCODE : 'Promocode'
 });

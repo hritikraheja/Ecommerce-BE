@@ -5,15 +5,8 @@ import { Brands } from "../models/brands.model";
 export const BrandsController = {
   getAllBrands: async (req, res) => {
     try {
-      let brands = await Brands.find({});
-      let result = brands.map((brand) => ({
-        name: brand.name,
-        email: brand.email,
-        description: brand.description,
-        moto: brand.moto,
-        rating: brand.rating,
-      }));
-      res.status(SUCCESS.GET_200.code).json({ result: result });
+      let brands = await Brands.find({}, {name : 1, moto :1, description : 1, rating : 1, email : 1, _id :0});
+      res.status(SUCCESS.GET_200.code).json({ result: brands });
     } catch (err) {
       res
         .status(ERROR.INTERNAL_SERVER_ERROR_500.code)
@@ -23,19 +16,10 @@ export const BrandsController = {
   getBrandByName: async (req, res) => {
     let name = req.params.name;
     try {
-      let brandArray = await Brands.find({ name: name });
-      if (brandArray.length == 0) {
-        return res.status(SUCCESS.NOT_FOUND.code).send(SUCCESS.NOT_FOUND);
-      }
-      let brand = brandArray[0];
+      let brand = await Brands.findOne({ name: name },
+        {name : 1, moto :1, description : 1, rating : 1, email : 1, _id :0});
       res.send({
-        result: {
-          name: brand.name,
-          moto: brand.moto,
-          description: brand.description,
-          rating: brand.rating,
-          email: brand.email,
-        },
+        result: brand,
       });
     } catch (err) {
       console.log(err);

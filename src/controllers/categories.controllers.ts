@@ -5,13 +5,8 @@ import { Categories } from "../models/categories.model";
 export const CateroriesController = {
   getAllCategories: async (req, res) => {
     try {
-      let categories = await Categories.find({});
-      let result = categories.map((category) => ({
-        name : category.name,
-        type : category.type,
-        description : category.description
-      }));
-      res.status(SUCCESS.GET_200.code).json({ result: result });
+      let categories = await Categories.find({}, {name :1, type : 1, description : 1, _id :0});
+      res.status(SUCCESS.GET_200.code).json({ result: categories });
     } catch (err) {
       res
         .status(ERROR.INTERNAL_SERVER_ERROR_500.code)

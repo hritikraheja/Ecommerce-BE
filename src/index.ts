@@ -31,6 +31,7 @@ export class App extends BootClass {
       this.app.use("/api/v1/cart", require('./routes/v1/cart.routes'))
       this.app.use("/api/v1/wishlist", require('./routes/v1/wishlist.routes'))
       this.app.use("/api/v1/orders", require("./routes/v1/orders.routes"))
+      this.app.use("/api/v1/promocodes", require('./routes/v1/promocodes.routes'))
       await this.start();
     } catch (error) {
       return Promise.reject(error);

@@ -5,17 +5,9 @@ import { Products } from "../models/products.model";
 export const ProductsController = {
   getAllProducts: async (req, res) => {
     try {
-      let products = await Products.find({});
-      let result = products.map((product) => ({
-        name: product.name,
-        brandId : product.brandId,
-        categoryId : product.categoryId,
-        size : product.size,
-        originalMRP : product.originalMRP,
-        description : product.description,
-        inStock : product.inStock
-      }));
-      res.status(SUCCESS.GET_200.code).json({ result: result });
+      let products = await Products.find({}, 
+        {name : 1, brandId : 1, categoryId : 1, size : 1, originalMRP : 1, description : 1, inStock : 1, _id : 0});
+      res.status(SUCCESS.GET_200.code).json({ result: products });
     } catch (err) {
       res
         .status(ERROR.INTERNAL_SERVER_ERROR_500.code)
@@ -25,20 +17,10 @@ export const ProductsController = {
   getProductByProductId: async (req, res) => {
     let productId = req.params.productId;
     try {
-      let productArray = await Products.find({ _id : productId });
-      if (productArray.length == 0) {
-        return res.status(SUCCESS.NOT_FOUND.code).send(SUCCESS.NOT_FOUND);
-      }
-      let product = productArray[0];
+      let product = await Products.find({ _id : productId }, {name : 1, brandId : 1, categoryId : 1, size : 1, originalMRP : 1, description : 1, inStock : 1, _id : 0});
       res.send({
         result: {
-          name: product.name,
-          brandId : product.brandId,
-          categoryId : product.categoryId,
-          size : product.size,
-          originalMRP : product.originalMRP,
-          description : product.description,
-          inStock : product.inStock
+          product
         },
       });
     } catch (err) {
