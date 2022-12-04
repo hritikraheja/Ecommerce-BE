@@ -13,6 +13,7 @@ export interface IOrderModel extends Document {
         quantity : Number
     }
   ],
+  promocodeId : Types.ObjectId,
   paymentStatus : Number,
   orderDeliveryStatus : Number,
   createdOn : Number,
@@ -31,6 +32,10 @@ export const OrderSchema: any = new Schema({
       quantity: { type: Number, required: true },
     },
   ],
+  promocodeId : {
+    type : Types.ObjectId,
+    ref : MONGO_DB_REF.PROMOCODE
+  },
   paymentStatus : {type : Number, default : PAYMENT_STATUS.PENDING},
   orderDeliveryStatus : {type : Number, default : ORDER_DELIVERY_STATUS.WAITING_FOR_APPROVAL},
   createdOn: { type: Number, default: dateConstants.currentTimeStamp() },

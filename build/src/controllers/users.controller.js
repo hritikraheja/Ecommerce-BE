@@ -75,12 +75,8 @@ exports.UsersController = {
     }),
     getUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            let users = yield users_model_1.Users.find({});
-            let result = users.map((user) => ({
-                email: user.email,
-                name: user.name,
-            }));
-            res.send({ users: result });
+            let users = yield users_model_1.Users.find({}, { email: 1, name: 1, _id: 0 });
+            res.send({ users: users });
         }
         catch (err) {
             res.status(500).send("Database Error : \n" + err);
@@ -89,17 +85,9 @@ exports.UsersController = {
     getUserByEmail: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let email = req.params.email;
         try {
-            let userArray = yield users_model_1.Users.find({ email: email });
-            if (userArray.length == 0) {
-                return res.status(succes_1.SUCCESS.NOT_FOUND.code).send(succes_1.SUCCESS.NOT_FOUND);
-            }
-            let user = userArray[0];
+            let user = yield users_model_1.Users.find({ email: email }, { email: 1, name: 1, role: 1, _id: 0 });
             res.send({
-                user: {
-                    email: user.email,
-                    userName: user.name,
-                    role: user.role == constants_1.ROLES.ADMIN ? "Admin" : "User",
-                },
+                user: user
             });
         }
         catch (err) {

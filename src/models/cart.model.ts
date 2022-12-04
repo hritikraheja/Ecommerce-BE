@@ -11,6 +11,7 @@ export interface ICartModel extends Document {
         quantity : Number
     }
   ],
+  promocodeId : Types.ObjectId,
   createdOn : Number,
   updatedOn : Number
 }
@@ -27,6 +28,10 @@ export const CartSchema: any = new Schema({
       quantity: { type: Number, required: true },
     },
   ],
+  promocodeId : {
+    type : Types.ObjectId,
+    ref : MONGO_DB_REF.PROMOCODE
+  },
   createdOn: { type: Number, default: dateConstants.currentTimeStamp() },
   updatedOn: { type: Number, default: dateConstants.currentTimeStamp() },
 });

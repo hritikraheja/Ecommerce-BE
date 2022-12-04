@@ -16,13 +16,8 @@ const categories_model_1 = require("../models/categories.model");
 exports.CateroriesController = {
     getAllCategories: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            let categories = yield categories_model_1.Categories.find({});
-            let result = categories.map((category) => ({
-                name: category.name,
-                type: category.type,
-                description: category.description
-            }));
-            res.status(succes_1.SUCCESS.GET_200.code).json({ result: result });
+            let categories = yield categories_model_1.Categories.find({}, { name: 1, type: 1, description: 1, _id: 0 });
+            res.status(succes_1.SUCCESS.GET_200.code).json({ result: categories });
         }
         catch (err) {
             res

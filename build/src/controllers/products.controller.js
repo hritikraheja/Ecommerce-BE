@@ -16,17 +16,8 @@ const products_model_1 = require("../models/products.model");
 exports.ProductsController = {
     getAllProducts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            let products = yield products_model_1.Products.find({});
-            let result = products.map((product) => ({
-                name: product.name,
-                brandId: product.brandId,
-                categoryId: product.categoryId,
-                size: product.size,
-                originalMRP: product.originalMRP,
-                description: product.description,
-                inStock: product.inStock
-            }));
-            res.status(succes_1.SUCCESS.GET_200.code).json({ result: result });
+            let products = yield products_model_1.Products.find({}, { name: 1, brandId: 1, categoryId: 1, size: 1, originalMRP: 1, description: 1, inStock: 1, _id: 0 });
+            res.status(succes_1.SUCCESS.GET_200.code).json({ result: products });
         }
         catch (err) {
             res
@@ -37,20 +28,10 @@ exports.ProductsController = {
     getProductByProductId: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let productId = req.params.productId;
         try {
-            let productArray = yield products_model_1.Products.find({ _id: productId });
-            if (productArray.length == 0) {
-                return res.status(succes_1.SUCCESS.NOT_FOUND.code).send(succes_1.SUCCESS.NOT_FOUND);
-            }
-            let product = productArray[0];
+            let product = yield products_model_1.Products.find({ _id: productId }, { name: 1, brandId: 1, categoryId: 1, size: 1, originalMRP: 1, description: 1, inStock: 1, _id: 0 });
             res.send({
                 result: {
-                    name: product.name,
-                    brandId: product.brandId,
-                    categoryId: product.categoryId,
-                    size: product.size,
-                    originalMRP: product.originalMRP,
-                    description: product.description,
-                    inStock: product.inStock
+                    product
                 },
             });
         }

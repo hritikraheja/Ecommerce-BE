@@ -16,7 +16,13 @@ const error_1 = require("../constants/error");
 exports.PromocodeController = {
     getAllPromocodes: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            let promocodes = yield promocode_model_1.Promocode.find({}, { name: 1, description: 1, discountPercentage: 1, minimumOrderValue: 1, _id: 0 });
+            let promocodes = yield promocode_model_1.Promocode.find({}, {
+                name: 1,
+                description: 1,
+                discountPercentage: 1,
+                minimumOrderValue: 1,
+                _id: 0,
+            });
             res.status(succes_1.SUCCESS.GET_200.code).json({ result: promocodes });
         }
         catch (err) {
@@ -44,7 +50,13 @@ exports.PromocodeController = {
     getApplicablePromocode: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             let orderValue = req.body.orderValue;
-            let promocodes = yield promocode_model_1.Promocode.find({ minimumOrderValue: { $lt: orderValue } }, { name: 1, description: 1, discountPercentage: 1, minimumOrderValue: 1, _id: 0 });
+            let promocodes = yield promocode_model_1.Promocode.find({ minimumOrderValue: { $lte: orderValue } }, {
+                name: 1,
+                description: 1,
+                discountPercentage: 1,
+                minimumOrderValue: 1,
+                _id: 0,
+            });
             res.status(succes_1.SUCCESS.GET_200.code).json({ result: promocodes });
         }
         catch (err) {

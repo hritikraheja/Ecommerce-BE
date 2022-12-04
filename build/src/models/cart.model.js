@@ -17,6 +17,10 @@ exports.CartSchema = new mongoose_1.Schema({
             quantity: { type: Number, required: true },
         },
     ],
+    promocodeId: {
+        type: mongoose_1.Types.ObjectId,
+        ref: database_names_1.MONGO_DB_REF.PROMOCODE
+    },
     createdOn: { type: Number, default: helpers_1.dateConstants.currentTimeStamp() },
     updatedOn: { type: Number, default: helpers_1.dateConstants.currentTimeStamp() },
 });

@@ -19,6 +19,10 @@ exports.OrderSchema = new mongoose_1.Schema({
             quantity: { type: Number, required: true },
         },
     ],
+    promocodeId: {
+        type: mongoose_1.Types.ObjectId,
+        ref: database_names_1.MONGO_DB_REF.PROMOCODE
+    },
     paymentStatus: { type: Number, default: constants_1.PAYMENT_STATUS.PENDING },
     orderDeliveryStatus: { type: Number, default: constants_1.ORDER_DELIVERY_STATUS.WAITING_FOR_APPROVAL },
     createdOn: { type: Number, default: helpers_1.dateConstants.currentTimeStamp() },

@@ -7,9 +7,14 @@ import { Cart } from "../../models/cart.model";
 const router = express.Router();
 
 router.get(
-  "/:id",
+  "/",
   Middlewares.Auth.Authenticate,
   Middlewares.Auth.AdminAuth,
+  celebrate({
+    body : {
+      id : Joi.string().required()
+    }
+  }),
   CartController.getCartItems
 );
 
@@ -35,6 +40,22 @@ celebrate({
   }
 }),
 CartController.removeItemFromCart)
+
+router.get('/estimatedOrderPrice', 
+Middlewares.Auth.Authenticate,
+Middlewares.Auth.UserAuth,
+CartController.getEstimatedPrice
+)
+
+router.post('/applyPromocode', 
+Middlewares.Auth.Authenticate,
+Middlewares.Auth.UserAuth,
+celebrate({
+  body : {
+    promocodeName : Joi.string().required()
+  }
+}),
+CartController.applyPromocode)
 
 router.put('/clearCart',
 Middlewares.Auth.Authenticate,
